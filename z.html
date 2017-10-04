@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        
+    </head>
+    <body>
+    <section id="data"></section>
+        
+        <script type="text/javascript">
+            function getdata(){
+        playterXhr = new XMLHttpRequest();
+        playterXhr.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200) {
+                var players = JSON.parse(this.responseText);
+                var section = document.getElementById("data");
+               
+               
+                   var ele = document.createElement("div");
+                    var imgEle = document.createElement("img");
+                    imgEle.src = players.image;
+                    var br = document.createElement("br");
+                    
+
+                    ele.append(imgEle);
+                    ele.append(br);
+                   
+
+                    // let html = `<img src="${players[i].image}">
+                    //             <br>
+                    //             <button type="button" onclick="load('${players[i].name}')" name="b1">${players[i].name}</button>`
+                    // let html = 
+                    // "<img src='"+players[i].image+"'><br><button type='button' onclick=load('"+players[i].name+"') name='b1'>click</button>"
+                    //ele.innerHTML = html;
+                    section.append(ele);}
+            
+        }
+        playterXhr.open("GET", "/gets");    
+        playterXhr.send();
+            
+    }
+    getdata();
+        </script>
+    </body>
+</html>

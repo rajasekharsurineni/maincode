@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+<label >UserName:</label>
+	<input type="text" id="uname" value="" name="uname"><br>
+	<label>email</label>
+	<input type="text" name="email" value=""><br>
+	
+	<p id="demo"></p>
+	<button type="button"onclick="loadfile()">button</button>
+	<script type="text/javascript">
+		function loadfile() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("demo").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "details");
+  xhttp.send();
+}
+loadfile()
+	</script>
+	
+</body>
+</html>

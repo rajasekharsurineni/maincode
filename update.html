@@ -1,0 +1,101 @@
+   <!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+    <section id="data"> </section>
+<section>
+<label for="name">Nmae:</label>
+    <input type="text" id="name" name="name"/><button name="nam" onclick="update('name',)">update</button><br>
+    <label for="born">Born:</label>
+    <input type="text" id="born" name="born"/><button name="brn" onclick="update('born')">update</button><br>
+    <label for="age">Age:</label>
+    <input type="number" id="Age" name="age"/><button name="ag" onclick="update('age')">update</button><br>
+    <label for="height">Height</label>
+    <input type="number" id="height" name="height"/><button name="hght" onclick="update('height')">update</button><br>
+    <label for="spouse">Spouse:</label>
+    <input type="text" id="Spouse" name="spouse"/><button name="spus" onclick="update('spouse')">update</button><br>
+    <label for="awards">Awards:</label>
+    <input type="text" id="Awards" name="awards"/><button name="awrds" onclick="update('Awards')">update</button><br>
+    <label for="siblings">Siblings:</label>
+    <input type="text" id="sibilings" name="sibilings"/><button name="sblngs" onclick="update('sibilings')">update</button><br>
+    <label for="parents">Parents:</label>
+    <input type="text" id="Parents" name="parents"/><button name="prnts" onclick="update('parents')">update</button><br>
+   
+</section>
+<script type="text/javascript">
+    function update(parameter){
+        var xhttp=new XMLHttpRequest();
+        xhttp.onreadystatechange =function(){
+            if (this.readyState==4 && this.status==200) {
+                var n=document.getElementById("name").value;
+
+            }
+        };
+        var sendObj = {};
+        var data = document.getElementById(parameter).value;
+        sendObj[parameter] = data;
+        xhttp.open("POST","update/"+window.currentUserId);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+        xhttp.send(JSON.stringify(sendObj));
+    }
+	function load(id) {
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log()
+                document.getElementById("name").value = JSON.parse(this.responseText).name;
+                document.getElementById("born").value = JSON.parse(this.responseText).born;
+                document.getElementById("Age").value = JSON.parse(this.responseText).age;
+                document.getElementById("height").value = JSON.parse(this.responseText).height;
+                document.getElementById("Spouse").value = JSON.parse(this.responseText).spouse;
+                document.getElementById("Awards").value = JSON.parse(this.responseText).awards;
+                document.getElementById("sibilings").value = JSON.parse(this.responseText).siblings;
+                document.getElementById("Parents").value = JSON.parse(this.responseText).parents;
+                window.currentUserId = id;
+            }
+        };
+
+        xhttp.open("GET", "detail/" + id);
+        xhttp.send();
+
+    }
+    function getdata(){
+        playterXhr = new XMLHttpRequest();
+        playterXhr.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200) {
+                var players = JSON.parse(this.responseText);
+                var section = document.getElementById("data");
+                for(var i =0;i<players.length;i++)
+                {
+
+                    var ele = document.createElement("div");
+                    //var imgEle = document.createElement("img");
+                    //imgEle.src = ;base64+baseStr64;
+                    
+                    //imgEle.src = 'data:image/jpg;base64,' + players[i].data ;
+                    // var baseStr64="/9j/4AAQSkZJRgABAQE...";
+     //                imgElem.setAttribute('src', "data:image/jpg;base64," + baseStr64);
+                    var br = document.createElement("br");
+                    var button = document.createElement("button");
+                    button.addEventListener("click",load.bind(this,players[i]._id));
+                    button.innerHTML = players[i].name;
+
+                    //ele.append(imgEle);
+                    ele.append(br);
+                    ele.append(button);
+
+                    section.append(ele);
+                }
+            }
+        }
+        playterXhr.open("GET", "/gets");    
+        playterXhr.send();
+            
+    }
+    getdata();
+</script>
+</body>
+</html>

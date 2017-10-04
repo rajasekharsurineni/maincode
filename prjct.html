@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		header {height:150px;background: #00ffff;color:white; text-align: center;}
+		section{height: 400px;width: 49%;background-color: #80bfff;float: left;margin: 2px;}
+		footer{height: 150px;background-color: #ff80ff;clear:both;}
+		ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+li  {
+    display: block;
+    text-decoration: none;
+}
+img{
+	height: 100px;
+	width: 100px;
+}
+
+p{
+	color: #000000;
+}
+
+	</style>
+
+
+</head>
+<body>
+<header >
+<h1>IPL</h1>
+<img src="D:\nodejs_example\ipl.jpeg" >
+</header>
+
+<section>
+	<ul>
+		<li><img src="dohni.jpg"><span><button type="button"onclick="load()" name="b1">click</button></span></li>
+		<li><img src="D:\nodejs_example\ganguly.jpg"><span><button type="button"onclick="" name="b1">click</button></span></li>
+		<li><img src="D:\nodejs_example\zaheer.jpg"><span><button type="button"onclick="" name="b1">click</button></span></li>
+	</ul>
+	
+
+</section>
+<section>
+	<p id="txt"></p>
+</section>
+<footer></footer>
+<script type="text/javascript">
+	function load() {
+		var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("txt").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "details");
+  xhttp.send();
+}
+	load()
+</script>
+</body>
+</html>

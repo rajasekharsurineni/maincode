@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	  <style type="text/css">
+    header {
+        height: 200px;
+        background: #ccccff;
+        color: white;
+        text-align: center;
+        
+        background-size: 1300px 200px;
+        background-repeat: no-repeat;
+    }
+
+    section {
+        height: 500px;
+        width: 49%;
+        background-color: #80bfff;
+        float: left;
+        margin: 2px;
+    }
+ #sec {
+        height: 500px;
+        width: 49%;
+        background-color: #80bfff;
+        float: left;
+        margin: 2px;
+    }
+    footer {
+        height: 150px;
+        background-color: #ff80ff;
+        clear: both;
+    }
+
+
+
+    img {
+        height: 100px;
+        width: 100px;
+    }
+
+    div {
+        float: left;
+        padding: 2%;
+    }
+
+    #div1 {
+
+        margin: 3%;
+    }
+
+    p {
+        color: #000000;
+    }
+
+    h1 {
+        color: #99ff99;
+    }
+
+    label {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ff0055;
+    }
+    </style>
+</head>
+<body>
+
+ <header class="header">
+        <h1>IPL</h1>
+        <!--<img src="ipl.jpeg" >-->
+        <button type="button" name="btn" onclick="getdat()">click</button>
+    </header>
+    <section id="data">
+        
+    </section>
+    <!-- <section id="sec">
+        
+    </section> -->
+
+
+
+ 
+  <section id="sec">
+        <div id="div1">
+            <h2>Team Players</h2>
+           <label id="name"></label>
+            <br>
+            <label id="p1"></label>
+            <br>
+            <label id="p2"></label>
+            <br>
+           <label id="p3"></label>
+            <br>
+            <label id="p4"></label>
+            <br>
+            <label id="p5"></label>
+            <br>
+            <label id="p6"></label>
+            <br>
+            <label id="p7"></label>
+            <br>
+            <label id="p8"></label>
+            <br>
+            <label id="p9"></label>
+            <br>
+            <label id="p10"></label>
+            <br>
+            <label id="p11"></label>
+            <br>
+            <label id="p12"></label>
+            <br>
+            
+        </div>
+    </section>
+<section class="sec" id="sec1">
+    <h2>schedule</h2>
+    
+</section>
+
+
+<script type="text/javascript">
+function load(id) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                //var div=document.getElementById("div1");
+                // console.log()
+                document.getElementById("name").innerHTML = JSON.parse(this.responseText).name;
+                
+                document.getElementById("p1").innerHTML = JSON.parse(this.responseText).p1;
+                document.getElementById("p2").innerHTML = JSON.parse(this.responseText).p2;
+                document.getElementById("p3").innerHTML = JSON.parse(this.responseText).p3;
+                document.getElementById("p4").innerHTML = JSON.parse(this.responseText).p4;
+                document.getElementById("p5").innerHTML = JSON.parse(this.responseText).p5;
+                document.getElementById("p6").innerHTML = JSON.parse(this.responseText).p6;
+                document.getElementById("p7").innerHTML = JSON.parse(this.responseText).p7;
+                document.getElementById("p8").innerHTML = JSON.parse(this.responseText).p8;
+                document.getElementById("p9").innerHTML = JSON.parse(this.responseText).p9;
+                document.getElementById("p10").innerHTML = JSON.parse(this.responseText).p10;
+                document.getElementById("p11").innerHTML = JSON.parse(this.responseText).p11;
+                document.getElementById("p12").innerHTML = JSON.parse(this.responseText).p12;
+                //document.getElementById("i1").src = 'data1:image/jpg;base64,'+this.responseText.data1;
+                //document.getElementById("i1").src = "F:\node_example\nodejs_example\sun.jpg";
+
+
+            }
+        };
+
+        xhttp.open("GET", "details/" + id);
+        xhttp.send();
+
+    }
+ 
+	function getdata(){
+		playterXhr = new XMLHttpRequest();
+		playterXhr.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200) {
+				var players = JSON.parse(this.responseText);
+				var section = document.getElementById("data");
+				for(var i =0;i<players.length;i++)
+				{
+
+					var ele = document.createElement("div");
+					var imgEle = document.createElement("img");
+					//imgEle.src = ;base64+baseStr64;
+					
+					imgEle.src = 'data:image/jpg;base64,' + players[i].data ;
+					// var baseStr64="/9j/4AAQSkZJRgABAQE...";
+     //                imgElem.setAttribute('src', "data:image/jpg;base64," + baseStr64);
+					var br = document.createElement("br");
+					var button = document.createElement("button");
+					button.addEventListener("click",load.bind(this,players[i].name));
+					button.innerHTML = players[i].name;
+
+					ele.append(imgEle);
+					ele.append(br);
+					ele.append(button);
+
+					section.append(ele);
+				}
+			}
+		}
+		playterXhr.open("GET", "/teams");    
+		playterXhr.send();
+			
+    }
+    getdata();
+    function loa() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log()
+                var matches = JSON.parse(this.responseText);
+                var section = document.getElementById("sec1");
+                for(var i =0;i<matches.length;i++)
+                {
+
+                    var ele = document.createElement("div");
+                    
+                     var button = document.createElement("h5");
+                     var button1 = document.createElement("h5");
+                     var br = document.createElement("br");
+                     var span=document.createElement("span");
+    
+                   
+                      button1.innerHTML =matches[i].match ;
+                       button.innerHTML =matches[i].date ;
+                        //button.innerHTML =matches[i].time ;
+                           // button.innerHTML =matches[i].place;
+
+                    //ele.append(label);
+                    ele.append(button1);
+                    ele.append(span);
+                     ele.append(button);
+                     
+
+                    section.append(ele);
+                    ele.append(br);
+                }
+
+            }
+        };
+
+        xhttp.open("GET", "match/" );
+        xhttp.send();
+
+    }
+    loa();
+    // function getdat(){
+    //     playterXhr = new XMLHttpRequest();
+    //     playterXhr.onreadystatechange = function(){
+    //         if (this.readyState == 4 && this.status == 200) {
+    //             var players = JSON.parse(this.responseText);
+    //             var section = document.getElementById("data");
+    //             for(var i =0;i<players.length;i++)
+    //             {
+
+    //                 var ele = document.createElement("div");
+    //                 var imgEle = document.createElement("img");
+    //                 //imgEle.src = ;base64+baseStr64;
+                    
+    //                 imgEle.src = 'data:image/jpg;base64,' + players[i].data ;
+    //                 // var baseStr64="/9j/4AAQSkZJRgABAQE...";
+    //  //                imgElem.setAttribute('src', "data:image/jpg;base64," + baseStr64);
+    //                 var br = document.createElement("br");
+    //                 var button = document.createElement("button");
+    //                 button.addEventListener("click",load.bind(this,players[i].name));
+    //                 button.innerHTML = players[i].name;
+
+    //                 ele.append(imgEle);
+    //                 ele.append(br);
+    //                 ele.append(button);
+
+    //                 section.append(ele);
+    //             }
+    //         }
+    //     }
+    //     playterXhr.open("GET", "/gets");    
+    //     playterXhr.send();
+            
+    // }
+    
+    
+</script>
+</body>
+</html>

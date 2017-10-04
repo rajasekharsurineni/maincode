@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style type="text/css">
+    header {
+        height: 200px;
+        background: #ccccff;
+        color: white;
+        text-align: center;
+        
+        background-size: 1300px 200px;
+        background-repeat: no-repeat;
+    }
+
+    section {
+        height: 500px;
+        width: 49%;
+        background-color: #80bfff;
+        float: left;
+        margin: 2px;
+    }
+
+    footer {
+        height: 150px;
+        background-color: #ff80ff;
+        clear: both;
+    }
+
+
+
+    img {
+        height: 100px;
+        width: 100px;
+    }
+
+    div {
+        float: left;
+        padding: 2%;
+    }
+
+    #div1 {
+
+        margin: 3%;
+    }
+
+    p {
+        color: #000000;
+    }
+
+    h1 {
+        color: #99ff99;
+    }
+
+    label {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ff0055;
+    }
+
+    @media only screen and (max-width : 768px) {
+        header {
+            height: 100px;
+            background: #00ffff;
+            color: white;
+            text-align: center;
+            
+            background-size: 768px 100px;
+            background-repeat: no-repeat;
+        }
+        h1 {
+            color: #000000
+        }
+        section {
+            width: 100%;
+            height: 800px;
+            float: left;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        header {
+            height: 100px;
+            background: #00ffff;
+            color: white;
+            text-align: center;
+    
+            background-size: auto;
+            background-repeat: no-repeat center;
+        }
+        h1 {
+            color: #ff0055
+        }
+        section {
+            width: 100%;
+            height: 1000px;
+            float: left;
+        }
+        #sec {
+            width: 100%;
+            height: 300 px;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1>IPL</h1>
+        <!--<img src="ipl.jpeg" >-->
+    </header>
+    <section id="players">
+        
+    </section>
+    <section id="sec">
+        <div id="div1">
+            <label>Name:</label><span><label id="name"></label></span>
+            <br>
+            <label>Born:</label><span><label id="Born"></label></span>
+            <br>
+            <label>Age:</label><span><label id="Age"></label></span>
+            <br>
+            <label>Height:</label><span><label id="height"></label></span>
+            <br>
+            <label>Spouse:</label><span><label id="Spouse"></label></span>
+            <br>
+            <label>Awards:</label><span><label id="Awards"></label></span>
+            <br>
+            <label>Siblings:</label><span><label id="siblings"></label></span>
+            <br>
+            <label>Parents:</label><span><label id="Parents"></label></span>
+            <br>
+        </div>
+    </section>
+    <footer></footer>
+    <script type="text/javascript">
+    function load(name) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log()
+                document.getElementById("name").innerHTML = JSON.parse(this.responseText).name;
+                document.getElementById("Born").innerHTML = JSON.parse(this.responseText).Born;
+                document.getElementById("Age").innerHTML = JSON.parse(this.responseText).age;
+                document.getElementById("height").innerHTML = JSON.parse(this.responseText).Height;
+                document.getElementById("Spouse").innerHTML = JSON.parse(this.responseText).Spouse;
+                document.getElementById("Awards").innerHTML = JSON.parse(this.responseText).Awards;
+                document.getElementById("siblings").innerHTML = JSON.parse(this.responseText).Siblings;
+                document.getElementById("Parents").innerHTML = JSON.parse(this.responseText).Parents;
+
+            }
+        };
+
+        xhttp.open("GET", "details/" + name);
+        xhttp.send();
+
+    }
+
+    function getPlayerData(){
+		playterXhr = new XMLHttpRequest();
+		playterXhr.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200) {
+				var players = JSON.parse(this.responseText);
+				var section = document.getElementById("players");
+				for(var i =0;i<players.length;i++)
+				{ 
+					var ele = document.createElement("div");
+					var imgEle = document.createElement("img");
+					imgEle.src = players[i].image;
+					var br = document.createElement("br");
+					var button = document.createElement("button");
+					button.addEventListener("click",load.bind(this,players[i].id));
+					button.innerHTML = players[i].name;
+
+					ele.append(imgEle);
+					ele.append(br);
+					ele.append(button);
+
+					// let html = `<img src="${players[i].image}">
+					//             <br>
+					//             <button type="button" onclick="load('${players[i].name}')" name="b1">${players[i].name}</button>`
+					// let html = 
+					// "<img src='"+players[i].image+"'><br><button type='button' onclick=load('"+players[i].name+"') name='b1'>click</button>"
+					//ele.innerHTML = html;
+					section.append(ele);
+				}
+			}
+		}
+		playterXhr.open("GET", "players/");    
+		playterXhr.send();
+			
+    }
+    getPlayerData();
+     load("ganguly");
+    </script>
+</body>
+
+</html>
