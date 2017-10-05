@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>
+</title>
+</head>
+<body>
+<div id="demo">
+    <button type="button" onclick="load()">request</button>
+ </div>
+ <script>
+ function load(){
+ var xhttp=new xmlhttprequest();
+ xhttp.onreadystatechange=function(){
+ if(this.readystate==4&&this.status==200){
+ 
+ document.getElementById("demo").innerhtml=this.responsetext;
+ }
+ } 
+ xhttp.open('GET','/hello',true);
+ xhttp.send();
+ }
+ 
+ </script>
+</body>
+</html>
