@@ -9,5 +9,5 @@ app.get('/hello',function(req,res){
 	res.send("hello world");
 });
 app.get('/',function(req,res){
-	res.sendFile(__dirname+'tea.html');
+	res.sendFile(__dirname+'/tea.html');
 });
